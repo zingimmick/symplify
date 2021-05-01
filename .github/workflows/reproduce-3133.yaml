@@ -1,0 +1,34 @@
+name: Split Tests
+
+on:
+  push: null
+
+env:
+  # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
+  COMPOSER_ROOT_VERSION: "dev-main"
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          tools: composer
+          coverage: none
+
+      - run: mkdir sample
+
+      - run: ls
+
+      - working-directory: sample
+        run:  composer require jean85/pretty-package-versions:"^1.6|^2.0.1"
+
+      - working-directory: sample
+        run:  composer update --no-progress --ansi --no-dev
+
+      - working-directory: sample
+        run:  composer require symplify/easy-coding-standard
