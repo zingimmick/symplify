@@ -31,4 +31,4 @@ jobs:
         run:  composer update --no-progress --ansi --no-dev
 
       - working-directory: sample
-        run:  composer require symplify/easy-coding-standard
+        run:  composer require symplify/easy-coding-standard:dev-main
